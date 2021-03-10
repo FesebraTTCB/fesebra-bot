@@ -1,0 +1,22 @@
+{
+  "name": "fesebra-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FesebraTTCB/fesebra-bot.git"
+  },
+  "author": "Fernando Barboza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FesebraTTCB/fesebra-bot/issues"
+  },
+  "homepage": "https://github.com/FesebraTTCB/fesebra-bot#readme",
+  "dependencies": {
+    "tmi.js": "^1.7.5"
+  }
+}
