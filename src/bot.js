@@ -1,4 +1,5 @@
 const tmi = require('tmi.js');
+const applicationService = require('./applicationServices/character');
 require('dotenv').config();
 
 // Define configuration options
@@ -23,10 +24,31 @@ client.on('connected', onConnectedHandler);
 client.connect();
 
 // Called every time a message comes in
-function onMessageHandler (target, context, msg, self) {
-  if (self) { return; } // Ignore messages from the bot
+async function onMessageHandler (target, context, msg, self) {
+  if (self) return; 
 
-  client.say(target, 'TESTANDO2');
+  if (msg.startsWith('!char ')){
+
+    const characterData = await applicationService.handleCharacterName(msg);
+
+    if (!characterData){
+      return client.say(target, "Char não encontrado.");
+    }      
+
+    client.say(target, `
+      Nome do char: ${characterData.name},
+      Título: ${characterData.title},
+      Sexo: ${characterData.sex},
+      Vocação: ${characterData.vocation},
+      Level: ${characterData.level},
+      Pontos Achievement: ${characterData.achievementPoints},
+      Mundo: ${characterData.world},
+      Residência: ${characterData.residence},
+      Último login: ${characterData.lastLogin.date},
+      Status da Conta: ${characterData.accountStatus},
+      Status: ${characterData.status}
+    `);
+  }
 }
 
 // Called every time the bot connects to Twitch chat
