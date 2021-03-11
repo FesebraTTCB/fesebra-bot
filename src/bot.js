@@ -1,16 +1,19 @@
 const tmi = require('tmi.js');
 const applicationService = require('./applicationServices/character');
+const AC = require('../config');
 require('dotenv').config();
 
 // Define configuration options
 const opts = {
+  connection: {
+		reconnect: true,
+		secure: true
+	},
   identity: {
     username: 'FesebraBOT',
     password: process.env.TWITCH_IRC_OAUTH
   },
-  channels: [
-    'broca11'
-  ]
+  channels: AC.ALLOWED_CHANNELS
 };
 
 // Create a client with our options
@@ -32,10 +35,10 @@ async function onMessageHandler (target, context, msg, self) {
     const characterData = await applicationService.handleCharacterName(msg);
 
     if (!characterData){
-      return client.say(target, "Char não encontrado.");
+      return client.say(target, `@${context.username} "Char não encontrado."`);
     }      
 
-    client.say(target, `
+    client.say(target, `@${context.username}
       Nome do char: ${characterData.name},
       Título: ${characterData.title},
       Sexo: ${characterData.sex},
