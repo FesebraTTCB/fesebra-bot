@@ -1,5 +1,6 @@
 const tmi = require('tmi.js');
 const applicationService = require('./applicationServices/character');
+const helperFunctions = require('./utils');
 const AC = require('../config');
 require('dotenv').config();
 
@@ -10,10 +11,10 @@ const opts = {
 		secure: true
 	},
   identity: {
-    username: 'FesebraBOT',
+    username: 'fesebrabot',
     password: process.env.TWITCH_IRC_OAUTH
   },
-  channels: AC.ALLOWED_CHANNELS
+  channels: AC.AC
 };
 
 // Create a client with our options
@@ -28,7 +29,7 @@ client.connect();
 
 // Called every time a message comes in
 async function onMessageHandler (target, context, msg, self) {
-  if (self) return; 
+  if (self) return;
 
   if (msg.startsWith('!char ')){
 
@@ -38,19 +39,11 @@ async function onMessageHandler (target, context, msg, self) {
       return client.say(target, `@${context.username} "Char não encontrado."`);
     }      
 
-    client.say(target, `@${context.username}
-      Nome do char: ${characterData.name},
-      Título: ${characterData.title},
-      Sexo: ${characterData.sex},
-      Vocação: ${characterData.vocation},
-      Level: ${characterData.level},
-      Pontos Achievement: ${characterData.achievementPoints},
-      Mundo: ${characterData.world},
-      Residência: ${characterData.residence},
-      Último login: ${characterData.lastLogin.date},
-      Status da Conta: ${characterData.accountStatus},
-      Status: ${characterData.status}
-    `);
+    client.say(
+      target, 
+      helperFunctions
+        .formatCharacterResponseFromApi(characterData)
+    );
   }
 }
 
@@ -58,3 +51,12 @@ async function onMessageHandler (target, context, msg, self) {
 function onConnectedHandler (addr, port) {
   console.log(`* Conectado em ${addr}:${port}`);
 }
+
+/*
+* Return all the commands available
+*
+* @param world string
+*/
+const helpCommand = async () => (
+  '!char <nome do char> => Pesquisa algumas informações do char'
+)
