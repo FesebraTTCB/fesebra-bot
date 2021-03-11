@@ -51,12 +51,3 @@ async function onMessageHandler (target, context, msg, self) {
 function onConnectedHandler (addr, port) {
   console.log(`* Conectado em ${addr}:${port}`);
 }
-
-/*
-* Return all the commands available
-*
-* @param world string
-*/
-const helpCommand = async () => (
-  '!char <nome do char> => Pesquisa algumas informações do char'
-)
