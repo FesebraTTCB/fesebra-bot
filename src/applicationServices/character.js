@@ -15,7 +15,7 @@ const handleCharacterName = async (name) => {
     characterName = characterNameSplited.join("");
   }
 
-  return await characterApiService.getByName(characterName);
+  return characterApiService.getByName(characterName);
 }
 
 module.exports = {
