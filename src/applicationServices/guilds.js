@@ -1,14 +1,15 @@
 const guildApiService = require('../apiServices/guilds');
+const helperFunctions = require('../utils');
 
 /*
-* Handle the guild name to send it to API 
+* Handle the world name to send it to API 
 * and format the response to the correct form 
 * to send back to bot
 *
-* @param guild string
+* @param world string
 */
 const handleGuildsByWorld = (world) => {
-  let worldName = world.slice(8);
+  let worldName = world.slice(8).trim();
 
   return guildApiService.getGuildsByWorld(worldName)
     .then(({ data }) => {
@@ -27,6 +28,29 @@ const handleGuildsByWorld = (world) => {
     });;
 }
 
+/*
+* Handle the guild name to send it to API 
+* and format the response to the correct form 
+* to send back to bot
+*
+* @param guild string
+*/
+const handleGuildByName = (guild) => {
+  const guildName = guild.slice(7).trim();
+
+  return guildApiService.getGuildByName(guildName)
+    .then(({ data }) => {
+      const guild = data.guild.data;
+    
+      return helperFunctions.formatGuildResponseFromApi(guild)
+    })
+    .catch(response => {
+      console.log("ERROR: " + response)
+      return false;
+    });;
+}
+
 module.exports = {
   handleGuildsByWorld,
+  handleGuildByName
 }

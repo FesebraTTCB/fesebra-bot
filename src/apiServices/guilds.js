@@ -7,6 +7,14 @@ const api = require('./axios');
 */
 const getGuildsByWorld = (world) => api.get(`guilds/${world}.json`);
 
+/*
+* Retrieve a single guild by its name
+*
+* @param name string
+*/
+const getGuildByName = (guild) => api.get(`guild/${guild}.json`);
+
 module.exports = {
-  getGuildsByWorld
+  getGuildsByWorld,
+  getGuildByName,
 }
