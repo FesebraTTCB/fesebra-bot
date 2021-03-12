@@ -1,6 +1,7 @@
 const tmi = require('tmi.js');
 const characterApplicationService = require('./applicationServices/character');
 const guildApplicationService = require('./applicationServices/guilds');
+const highscoreApplicationService = require('./applicationServices/highscores');
 const helperFunctions = require('./utils');
 const AC = require('../config');
 require('dotenv').config();
@@ -37,7 +38,7 @@ async function onMessageHandler (target, context, msg, self) {
     const characterData = await characterApplicationService.handleCharacterName(msg);
 
     if (!characterData){
-      return client.say(target, `@${context.username} "Char não encontrado."`);
+      return client.say(target, `Char não encontrado. @${context.username}`);
     }      
 
     client.say(
@@ -48,24 +49,36 @@ async function onMessageHandler (target, context, msg, self) {
   }
 
   // Busca todas as guilds de um mundo
-  if (msg.startsWith('!guilds ')){
-    const allGuildNames = await guildApplicationService.handleGuildsByWorld(msg);
+  // if (msg.startsWith('!guilds ')){
+  //   const allGuildNames = await guildApplicationService.handleGuildsByWorld(msg);
 
-    if (!allGuildNames){
-      return client.say(target, `@${context.username} Mundo não encontrado.`);  
-    }
+  //   if (!allGuildNames){
+  //     return client.say(target, `Mundo não encontrado. @${context.username}`);  
+  //   }
 
-    client.say(target, `@${context.username} ${allGuildNames}`);
-  }
+  //   client.say(target, `@${context.username} ${allGuildNames}`);
+  // }
 
+  // Busca uma guild específica
   if (msg.startsWith('!guild ')){
     const guildData = await guildApplicationService.handleGuildByName(msg);
 
     if (!guildData){
-      return client.say(target, `@${context.username} Guild não encontrada.`);  
+      return client.say(target, `Guild não encontrada. @${context.username}`);  
     }
 
     client.say(target, `@${context.username} ${guildData}`);
+  }
+
+  // Ranking de level por mundo
+  if (msg.startsWith('!toplvl ')){
+    const highscoresWorld = await highscoreApplicationService.handleHighscoreLevelByWorld(msg);
+
+    if (!highscoresWorld){
+      return client.say(target, `Mundo não encontrado. @${context.username}`);  
+    }
+
+    client.say(target, `@${context.username} ${highscoresWorld}`);
   }
 }
 
