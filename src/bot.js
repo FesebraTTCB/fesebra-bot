@@ -52,10 +52,20 @@ async function onMessageHandler (target, context, msg, self) {
     const allGuildNames = await guildApplicationService.handleGuildsByWorld(msg);
 
     if (!allGuildNames){
-      client.say(target, `@${context.username} Mundo não encontrado.`);  
+      return client.say(target, `@${context.username} Mundo não encontrado.`);  
     }
 
     client.say(target, `@${context.username} ${allGuildNames}`);
+  }
+
+  if (msg.startsWith('!guild ')){
+    const guildData = await guildApplicationService.handleGuildByName(msg);
+
+    if (!guildData){
+      return client.say(target, `@${context.username} Guild não encontrada.`);  
+    }
+
+    client.say(target, `@${context.username} ${guildData}`);
   }
 }
 

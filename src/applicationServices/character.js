@@ -40,7 +40,7 @@ const handleCharacterName = (name) => {
     
       return character;
     })
-    .catch(({ response }) => {
+    .catch(response => {
       console.log("ERROR: " + response)
     });
 }
