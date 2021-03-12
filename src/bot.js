@@ -2,6 +2,7 @@ const tmi = require('tmi.js');
 const characterApplicationService = require('./applicationServices/character');
 const guildApplicationService = require('./applicationServices/guilds');
 const highscoreApplicationService = require('./applicationServices/highscores');
+const worldsApplicationService = require('./applicationServices/worlds');
 const helperFunctions = require('./utils');
 const AC = require('../config');
 require('dotenv').config();
@@ -75,10 +76,31 @@ async function onMessageHandler (target, context, msg, self) {
     const highscoresWorld = await highscoreApplicationService.handleHighscoreLevelByWorld(msg);
 
     if (!highscoresWorld){
-      return client.say(target, `Mundo não encontrado. @${context.username}`);  
+      return client.say(target, `Mundo não encontrado. @${context.username}`); 
     }
 
     client.say(target, `@${context.username} ${highscoresWorld}`);
+  }
+
+  // Busca todos os mundos
+  // if (msg.startsWith('!mundos')){
+  //   const worlds = await worldsApplicationService.handleAllWorlds(msg);
+
+  //   if (!worlds){
+  //     return client.say(target, `Houve um problema, tente novamente mais tarde. @${context.username}`); 
+  //   }
+
+  //   return client.say(target, `@${context.username} ${worlds}`); 
+  // }
+
+  if (msg.startsWith('!mundo ')){
+    const world = await worldsApplicationService.handleWorldByName(msg);
+
+    if (!world){
+      return client.say(target, `Mundo não encontrado. @${context.username}`); 
+    }
+
+    client.say(target, `@${context.username} ${world}`);
   }
 }
 

@@ -12,7 +12,7 @@ const formatCharacterResponseFromApi = character =>
     Mundo: ${character.world},
     Residência: ${character.residence},
     Status da Conta: ${character.accountStatus},
-    Status: ${character.status}
+    Status: ${character.status}.
   `;
 
 const formatGuildResponseFromApi = guild => 
@@ -24,7 +24,7 @@ const formatGuildResponseFromApi = guild =>
     Total membros: ${guild.totalmembers},
     Mundo: ${guild.world},
     Data de criação: ${formatDateToPtbr(guild.founded)},
-    Status: ${guild.active ? 'Ativa' : 'Desativada'}
+    Status: ${guild.active ? 'Ativa' : 'Desativada'}.
   `;
 
 const formatHighscoreLevelByWorldResponseFromApi = highscore => 
@@ -32,9 +32,27 @@ const formatHighscoreLevelByWorldResponseFromApi = highscore =>
     Rank: ${highscore.rank},
     Nome: ${highscore.name},
     Vocação: ${highscore.vocation},
-    Level: ${highscore.level}
+    Level: ${highscore.level}.
     //
   `;
+
+const formatWorldsResponseFromApi = world => 
+  `
+    Nome: ${world.name},
+    Jogadores online: ${world.online},
+    Localização: ${world.location},
+    Tipo: ${world.worldtype}.
+    //
+  `;
+
+const formatWorldResponseFromApi = world => 
+  `
+    Nome: ${world.name},
+    Jogadores online: ${world.players_online},
+    Recorde jogadores online: ${world.online_record.players},
+    Localização: ${world.location},
+    Tipo: ${world.pvp_type}.
+  `
 
 const formatDateToPtbr = date => {
   const dateObj = new Date(date);
@@ -60,4 +78,6 @@ module.exports = {
   formatDateToPtbr,
   capitalizeFirstLetterEachWord,
   formatHighscoreLevelByWorldResponseFromApi,
+  formatWorldsResponseFromApi,
+  formatWorldResponseFromApi,
 }
