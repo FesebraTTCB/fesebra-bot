@@ -5,7 +5,7 @@ const characterApiService = require('../apiServices/characters');
 *
 * @param name string
 */
-const handleCharacterName = (name) => {
+const handleCharacterName = name => {
   let characterName = "";
   const characterNameSplited = name.slice(6).split(" ");
 
