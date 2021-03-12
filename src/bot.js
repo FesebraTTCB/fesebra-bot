@@ -1,6 +1,7 @@
 const tmi = require('tmi.js');
 const characterApplicationService = require('./applicationServices/character');
 const guildApplicationService = require('./applicationServices/guilds');
+const highscoreApplicationService = require('./applicationServices/highscores');
 const helperFunctions = require('./utils');
 const AC = require('../config');
 require('dotenv').config();
@@ -48,16 +49,17 @@ async function onMessageHandler (target, context, msg, self) {
   }
 
   // Busca todas as guilds de um mundo
-  if (msg.startsWith('!guilds ')){
-    const allGuildNames = await guildApplicationService.handleGuildsByWorld(msg);
+  // if (msg.startsWith('!guilds ')){
+  //   const allGuildNames = await guildApplicationService.handleGuildsByWorld(msg);
 
-    if (!allGuildNames){
-      return client.say(target, `@${context.username} Mundo não encontrado.`);  
-    }
+  //   if (!allGuildNames){
+  //     return client.say(target, `@${context.username} Mundo não encontrado.`);  
+  //   }
 
-    client.say(target, `@${context.username} ${allGuildNames}`);
-  }
+  //   client.say(target, `@${context.username} ${allGuildNames}`);
+  // }
 
+  // Busca uma guild específica
   if (msg.startsWith('!guild ')){
     const guildData = await guildApplicationService.handleGuildByName(msg);
 
@@ -66,6 +68,17 @@ async function onMessageHandler (target, context, msg, self) {
     }
 
     client.say(target, `@${context.username} ${guildData}`);
+  }
+
+  // Ranking de level por mundo
+  if (msg.startsWith('!toplvl ')){
+    const highscoresWorld = await highscoreApplicationService.handleHighscoreLevelByWorld(msg);
+
+    if (!highscoresWorld){
+      return client.say(target, `@${context.username} mundo não encontrado`);  
+    }
+
+    client.say(target, `@${context.username} ${highscoresWorld}`);
   }
 }
 

@@ -27,6 +27,15 @@ const formatGuildResponseFromApi = guild =>
     Status: ${guild.active ? 'Ativa' : 'Desativada'}
   `;
 
+const formatHighscoreLevelByWorldResponseFromApi = highscore => 
+  `
+    Rank: ${highscore.rank},
+    Nome: ${highscore.name},
+    Vocação: ${highscore.vocation},
+    Level: ${highscore.level}
+    //
+  `;
+
 const formatDateToPtbr = date => {
   const dateObj = new Date(date);
 	const timezoneOffset = dateObj.getTimezoneOffset();
@@ -50,4 +59,5 @@ module.exports = {
   formatGuildResponseFromApi,
   formatDateToPtbr,
   capitalizeFirstLetterEachWord,
+  formatHighscoreLevelByWorldResponseFromApi,
 }
