@@ -38,7 +38,7 @@ async function onMessageHandler (target, context, msg, self) {
     const characterData = await characterApplicationService.handleCharacterName(msg);
 
     if (!characterData){
-      return client.say(target, `@${context.username} "Char não encontrado."`);
+      return client.say(target, `Char não encontrado. @${context.username}`);
     }      
 
     client.say(
@@ -53,7 +53,7 @@ async function onMessageHandler (target, context, msg, self) {
   //   const allGuildNames = await guildApplicationService.handleGuildsByWorld(msg);
 
   //   if (!allGuildNames){
-  //     return client.say(target, `@${context.username} Mundo não encontrado.`);  
+  //     return client.say(target, `Mundo não encontrado. @${context.username}`);  
   //   }
 
   //   client.say(target, `@${context.username} ${allGuildNames}`);
@@ -64,7 +64,7 @@ async function onMessageHandler (target, context, msg, self) {
     const guildData = await guildApplicationService.handleGuildByName(msg);
 
     if (!guildData){
-      return client.say(target, `@${context.username} Guild não encontrada.`);  
+      return client.say(target, `Guild não encontrada. @${context.username}`);  
     }
 
     client.say(target, `@${context.username} ${guildData}`);
@@ -75,7 +75,7 @@ async function onMessageHandler (target, context, msg, self) {
     const highscoresWorld = await highscoreApplicationService.handleHighscoreLevelByWorld(msg);
 
     if (!highscoresWorld){
-      return client.say(target, `@${context.username} mundo não encontrado`);  
+      return client.say(target, `Mundo não encontrado. @${context.username}`);  
     }
 
     client.say(target, `@${context.username} ${highscoresWorld}`);
