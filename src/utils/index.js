@@ -1,4 +1,4 @@
-const firstLetterUppercased = (word) => word.charAt(0).toUpperCase() + word.substring(1);
+const firstLetterUppercased = (word) => (word.charAt(0).toUpperCase() + word.substring(1).trim());
 
 const formatCharacterResponseFromApi = (character) => 
   `

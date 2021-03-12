@@ -5,7 +5,7 @@ const characterApiService = require('../apiServices/characters');
 *
 * @param name string
 */
-const handleCharacterName = async (name) => {
+const handleCharacterName = (name) => {
   let characterName = "";
   const characterNameSplited = name.slice(6).split(" ");
 
@@ -44,6 +44,7 @@ const handleCharacterName = async (name) => {
       console.log("ERROR: " + response)
     });
 }
+
 
 module.exports = {
   handleCharacterName,

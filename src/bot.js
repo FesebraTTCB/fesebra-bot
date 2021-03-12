@@ -1,5 +1,6 @@
 const tmi = require('tmi.js');
-const applicationService = require('./applicationServices/character');
+const characterApplicationService = require('./applicationServices/character');
+const guildApplicationService = require('./applicationServices/guilds');
 const helperFunctions = require('./utils');
 const AC = require('../config');
 require('dotenv').config();
@@ -31,9 +32,9 @@ client.connect();
 async function onMessageHandler (target, context, msg, self) {
   if (self) return;
 
+  // Busca por char
   if (msg.startsWith('!char ')){
-
-    const characterData = await applicationService.handleCharacterName(msg);
+    const characterData = await characterApplicationService.handleCharacterName(msg);
 
     if (!characterData){
       return client.say(target, `@${context.username} "Char não encontrado."`);
@@ -44,6 +45,17 @@ async function onMessageHandler (target, context, msg, self) {
       helperFunctions
         .formatCharacterResponseFromApi(characterData)
     );
+  }
+
+  // Busca todas as guilds de um mundo
+  if (msg.startsWith('!guilds ')){
+    const allGuildNames = await guildApplicationService.handleGuildsByWorld(msg);
+
+    if (!allGuildNames){
+      client.say(target, `@${context.username} Mundo não encontrado.`);  
+    }
+
+    client.say(target, `@${context.username} ${allGuildNames}`);
   }
 }
 
