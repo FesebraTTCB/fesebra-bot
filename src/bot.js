@@ -34,6 +34,15 @@ client.connect();
 async function onMessageHandler (target, context, msg, self) {
   if (self) return;
 
+  if (msg.startsWith('!fesebra')){
+    return client.say(target, 
+      `!char <nome char> => Devolve informações básicas do char // 
+      !toplvl <mundo> => Top 5 level de um mundo // 
+      !guild <nome guild> => Informações básicas de uma guild //
+      !mundo <nome mundo> => Informações básico de um servidor //
+      `);
+  }
+
   // Busca por char
   if (msg.startsWith('!char ')){
     const characterData = await characterApplicationService.handleCharacterName(msg);
