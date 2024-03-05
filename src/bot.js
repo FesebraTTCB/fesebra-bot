@@ -10,9 +10,9 @@ require('dotenv').config();
 // Define configuration options
 const opts = {
   connection: {
-		reconnect: true,
-		secure: true
-	},
+    reconnect: true,
+    secure: true
+  },
   identity: {
     username: 'fesebrabot',
     password: process.env.TWITCH_IRC_OAUTH
